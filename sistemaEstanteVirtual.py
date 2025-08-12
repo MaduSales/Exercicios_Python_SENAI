@@ -106,7 +106,7 @@ while True:
     print('\nSeja bem-vindo(a) ao Sistema de Gerenciamento de Livros!')
 
     # livroAleatorio = input('Você gostaria de uma indicação de leitura? S/N')
-    escolha = input('\nSelecione uma opção:\n1- Listar livros do catálogo\n2- Cadastrar Livro\n3- Avaliar um livro\n4- Pesquisar obras por autor\n5- Sair\nInsira: ')
+    escolha = input('\nSelecione uma opção:\n1- Listar livros do catálogo\n2- Cadastrar Livro\n3- Avaliar um livro\n4- Pesquisar obras por autor\n5- Ver sinopse de um livro\n6- Sair\nInsira: ')
     match escolha:
         case '1':
            listar_livros(livros)
@@ -117,6 +117,8 @@ while True:
         case '4':
             print(9)
         case '5':
+            print()
+        case '6':
             break
         case _:
             print('\nOpção inválida. Digite novamente.\n')
