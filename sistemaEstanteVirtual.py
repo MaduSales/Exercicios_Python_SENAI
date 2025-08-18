@@ -46,7 +46,7 @@ livros = [
     },
     {
         "titulo": "O Morro dos Ventos Uivantes",
-        "autor": "Emily Brontë",
+        "autor": "Emily Bronte",
         "sinopse": "A história de amor obsessivo entre Heathcliff e Catherine, marcada por vingança e sofrimento.",
         "avaliacoes": [],
         "media_avaliacao": 0,
@@ -72,10 +72,9 @@ def listar_livros(livros):
 def cadastrar_livro():
     try:
         titulo = input('Qual o nome do livro? ').title()
-        for i in range(len(livros)):
-            for livro in livros:
-                while titulo == livro['titulo'].title():
-                    titulo = input('Esse livro já está cadastrado. Tente cadastrar outro livro. ').title()
+        for livro in livros:
+            while titulo == livro['titulo'].title():
+                titulo = input('Esse livro já está cadastrado. Tente cadastrar outro livro. ').title()
 
         autor = input('Quem escreveu o livro? ').title()
 
@@ -98,27 +97,91 @@ def cadastrar_livro():
         print('Erro de caractere!')
 
     novoLivro = {'titulo':titulo, 'autor':autor, 'sinopse':sinopse, 'avaliacoes':avaliacoes, 'media_avaliacoes':media_avaliacoes, 'genero':genero, 'ano':ano}
-    livros.append(novoLivro)
-    print(f'\n" {titulo} " foi adicionado com sucesso!')
+    livros['titulo'].append(novoLivro)
+    print(f'\n {titulo} foi adicionado com sucesso!')
+
+
+def avaliar_livro():
+    try:
+        titulo = input('\nQual o nome do livro? ').title()
+        encontrado = False
+        for livro in livros:
+            if titulo == livro['titulo'].title():
+                encontrado = True
+                break
+        if encontrado == False:
+            titulo = input('Não foi possível encontrar esse livro... Tente buscar por algum que esteja no catálogo. ').title()
+        
+        print(f'\nMédia de avaliações atualmente para este livro: {livro['media_avaliacao']:.1f}')
+        nota = float(input(f'De 0 a 5, qual a sua nota para {titulo}? '))
+        while (nota < 0 or nota > 5):
+            nota = float(input(f'Tente novamente... De 0 a 5, qual a sua nota para {titulo}? '))
+
+        livro['avaliacoes'].append(nota)
+        livro['media_avaliacao'] = sum(livro['avaliacoes']) / len(livro['avaliacoes'])
+        print(f'\nNova avaliação para {titulo} cadastrada!\nMédia de avaliações atualmente para este livro: {livro['media_avaliacao']:.1f}')
+
+    except ValueError:
+        print('Erro de caractere!')
+
+
+def listar_avaliacoes():
+    while True:
+        i = 0
+        print('\n-----------------------------------------------------')
+        print('AVALIAÇÕES DO CATÁLOGO\n')
+
+        for livro in livros:
+            print(f'{i + 1}. {livro['titulo']} - {livro['media_avaliacao']}')
+            i += 1
+        print('-------------------------------------------------------')
+
+        avaliar = input('Gostaria de avaliar um livro? Responda S para "Sim", ou qualquer outra tecla para "Não": ').upper()
+        if avaliar == 'S':
+            avaliar_livro()
+            break
+        else:
+            break
+
+
+def pesquisar_autor():
+    i = 0
+    encontrado = False
+    autor = input('Por qual autor você gostaria de buscar os livros? ').title()
+    print('\n---------------------------------')
+    print(f'Livros do autor: {autor}')
+    for livro in livros:
+        if autor == livro['autor'].title():
+            print(f'{i+1} -> {autor} - {livro["titulo"]}')
+            i += 1
+            encontrado = True
+    if encontrado == False:
+        print('Não há livros cadastrados para esse autor!')
+    print('---------------------------------\n')
+
 
 
 while True:
-    print('\nSeja bem-vindo(a) ao Sistema de Gerenciamento de Livros!')
+    print('\nSeja bem-vindo(a) à Estante Virtual de Livros!')
 
     # livroAleatorio = input('Você gostaria de uma indicação de leitura? S/N')
-    escolha = input('\nSelecione uma opção:\n1- Listar livros do catálogo\n2- Cadastrar Livro\n3- Avaliar um livro\n4- Pesquisar obras por autor\n5- Ver sinopse de um livro\n6- Sair\nInsira: ')
+    escolha = input('\nSelecione uma opção:\n1- Listar livros do catálogo\n2- Cadastrar Livro\n' \
+    '3- Avaliar um livro\n4- Listar avaliações dos livros em catálogo\n5- Pesquisar obras por autor\n' \
+    '6- Ver sinopse de um livro\n7- Sair\nInsira: ')
     match escolha:
         case '1':
            listar_livros(livros)
         case '2':
             cadastrar_livro()
         case '3':
-            print(9)
+            avaliar_livro()
         case '4':
-            print(9)
+            listar_avaliacoes()
         case '5':
-            print()
+            pesquisar_autor()
         case '6':
+            print(3)
+        case '7':
             break
         case _:
             print('\nOpção inválida. Digite novamente.\n')
