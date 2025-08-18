@@ -97,7 +97,7 @@ def cadastrar_livro():
         print('Erro de caractere!')
 
     novoLivro = {'titulo':titulo, 'autor':autor, 'sinopse':sinopse, 'avaliacoes':avaliacoes, 'media_avaliacoes':media_avaliacoes, 'genero':genero, 'ano':ano}
-    livros['titulo'].append(novoLivro)
+    livros.append(novoLivro)
     print(f'\n {titulo} foi adicionado com sucesso!')
 
 
