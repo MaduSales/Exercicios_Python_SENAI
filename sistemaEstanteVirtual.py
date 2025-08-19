@@ -185,7 +185,7 @@ while True:
     print('\n---------------------------------')
     print('Seja bem-vindo(a) à Estante Virtual de Livros!')
 
-    # livroAleatorio = input('Você gostaria de uma indicação de leitura? S/N')
+
     escolha = input('\nSelecione uma opção:\n1- Listar livros do catálogo\n2- Cadastrar Livro\n' \
     '3- Avaliar um livro\n4- Listar avaliações dos livros em catálogo\n5- Pesquisar obras pelo título\n' \
     '6- Sair\nInsira: ')
